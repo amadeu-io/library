@@ -1,0 +1,50 @@
+/* reset default styles */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+}
+
+tr {
+  border-bottom: none;
+}
+
+th {
+  text-align: left;
+}
+
+td, th {
+  border: 1px solid;
+  padding: 10px;
+}
+
+/* body */
+
+html, body { /* take up full height*/
+  height: 100%;
+}
+
+body {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 200px 1fr;
+}
+
+h1, .table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  width: 500px;
+}
