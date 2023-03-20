@@ -1,50 +1,73 @@
-// constructor function
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
+myLibraryy = [
+  {
+    title: "The Hobbit",
+    author: "J.R.R. Tolkien",
+    pages: 295,
+    read: "No",
+  },
+  {
+    title: "The Theory of Relativity",
+    author: "Albert Einstein",
+    pages: 123,
+    read: "Yes",
+  },
+];
 
-// add book to library
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
-
-// appends book to table
-function addBookToTable(book) {
-  table.innerHTML += 
-  `
+// add library to page. library is an array of book objects
+function addLibraryToPage(library) {
+  // remove previous content
+  table.innerHTML = `
   <tr>
-    <td>${book.title}</td>
-    <td>${book.author}</td>
-    <td>${book.pages}</td>
-    <td>${book.read}</td>
+    <th>Name</th>
+    <th>Author</th>
+    <th>Pages</th>
+    <th>Read</th>
+    <th>Remove</th>
   </tr>
-  `
-};
+  `;
 
-// adds books from library to table
-function addLibraryToTable() {
-  for (let i = 0; i < myLibrary.length; i++) {
-    addBookToTable(myLibrary[i])
-  };
-};
+  // iterate trough library and add every single book to table
+  for (let i = 0; i < library.length; i++) {
+    table.innerHTML += `
+    <tr>
+      <td>${library[i].title}</td>
+      <td>${library[i].author}</td>
+      <td>${library[i].pages}</td>
+      <td>${library[i].read}</td>
+      <td class='close'>✖️</td>
+    </tr>
+    `;
+  }
+}
 
-// program starts here
-let myLibrary = [];
-let table = document.querySelector('table');
+let myLibrary = []; // array of book objects
+let table = document.querySelector("table");
+let form = document.querySelector("form");
 
-// define books and add to library
-let book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, "No");
-let book2 = new Book("Harry Potter", "J.K. Rowling", 647, "No");
-let book3 = new Book("The Theory of Relativity", "Albert Einstein", 123, "Yes");
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
+form.addEventListener("submit", function (event) {
+  // initialize new book
+  let newBook = {};
 
-addLibraryToTable();
+  // take form input and build newBook object
+  event.preventDefault();
+  const formData = new FormData(form);
+  for (const [key, value] of formData) {
+    newBook[key] = value;
+  }
 
+  // add newBook to library
+  myLibrary.push(newBook);
 
+  // add myLibrary to page
+  addLibraryToPage(myLibrary);
 
+  // remove book capability
+  let close = document.querySelectorAll(".close");
 
+  for (let i = 0; i < close.length; i++) {
+    close[i].addEventListener("click", function (event) {
+      console.log(i);
+      console.log(close[i]);
+    });
+  }
+});
