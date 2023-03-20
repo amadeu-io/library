@@ -63,11 +63,19 @@ form.addEventListener("submit", function (event) {
 
   // remove book capability
   let close = document.querySelectorAll(".close");
-
   for (let i = 0; i < close.length; i++) {
     close[i].addEventListener("click", function (event) {
-      console.log(i);
-      console.log(close[i]);
+      let currentRow = close[i].closest("tr"); // finds <tr> parent of the current close button
+      currentRow.remove();
+      myLibrary.splice(i, 1); // remove corresponding book in myLibrary
     });
   }
+
+  /* let close = document.querySelectorAll(".close");
+  for (let i = 0; i < close.length; i++) {
+    close[i].addEventListener("click", function (event) {
+      myLibrary.splice(i, 1); // remove corresponding book in myLibrary
+      addLibraryToPage(myLibrary); // update page
+    });
+  } */
 });
