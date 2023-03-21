@@ -18,11 +18,11 @@ function addLibraryToPage(library) {
   // remove previous content
   table.innerHTML = `
   <tr>
-    <th>Name</th>
+    <th>Title</th>
     <th>Author</th>
     <th>Pages</th>
     <th>Read</th>
-    <th>Remove</th>
+    <th>Close</th>
   </tr>
   `;
 
@@ -43,6 +43,7 @@ function addLibraryToPage(library) {
 let myLibrary = []; // array of book objects
 let table = document.querySelector("table");
 let form = document.querySelector("form");
+let count = 0;
 
 form.addEventListener("submit", function (event) {
   // initialize new book
@@ -55,27 +56,30 @@ form.addEventListener("submit", function (event) {
     newBook[key] = value;
   }
 
+  // add unique id to each book
+  newBook.id = count;
+  count++;
+
   // add newBook to library
   myLibrary.push(newBook);
 
   // add myLibrary to page
   addLibraryToPage(myLibrary);
 
-  // remove book capability
+  // remove book
   let close = document.querySelectorAll(".close");
   for (let i = 0; i < close.length; i++) {
     close[i].addEventListener("click", function (event) {
       let currentRow = close[i].closest("tr"); // finds <tr> parent of the current close button
       currentRow.remove();
-      myLibrary.splice(i, 1); // remove corresponding book in myLibrary
+
+      // find the index of the book which id matches the closed row
+      let closeIndex = myLibrary.findIndex(function (object) {
+        return object.id == i;
+      });
+
+      // delete that book from library
+      myLibrary.splice(closeIndex, 1);
     });
   }
-
-  /* let close = document.querySelectorAll(".close");
-  for (let i = 0; i < close.length; i++) {
-    close[i].addEventListener("click", function (event) {
-      myLibrary.splice(i, 1); // remove corresponding book in myLibrary
-      addLibraryToPage(myLibrary); // update page
-    });
-  } */
 });
