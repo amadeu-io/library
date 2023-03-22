@@ -13,37 +13,24 @@ myLibraryy = [
   },
 ];
 
-// add library to page. library is an array of book objects
-function addLibraryToPage(library) {
-  // remove previous content
-  table.innerHTML = `
+// add book to table. Book is an object and id should be unique every time
+function addBookToTable(book, id) {
+  table.innerHTML += `
   <tr>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Pages</th>
-    <th>Read</th>
-    <th>Close</th>
+    <td>${book.title}</td>
+    <td>${book.author}</td>
+    <td>${book.pages}</td>
+    <td>${book.read}</td>
+    <td class='remove' id=${id}>✖️</td>
   </tr>
   `;
-
-  // iterate trough library and add every single book to table
-  for (let i = 0; i < library.length; i++) {
-    table.innerHTML += `
-    <tr>
-      <td>${library[i].title}</td>
-      <td>${library[i].author}</td>
-      <td>${library[i].pages}</td>
-      <td>${library[i].read}</td>
-      <td class='close'>✖️</td>
-    </tr>
-    `;
-  }
+  // every time a new row is added, it is assigned a unique id
 }
 
 let myLibrary = []; // array of book objects
+let count = 0; // id assigner
 let table = document.querySelector("table");
 let form = document.querySelector("form");
-let count = 0;
 
 form.addEventListener("submit", function (event) {
   // initialize new book
@@ -56,30 +43,31 @@ form.addEventListener("submit", function (event) {
     newBook[key] = value;
   }
 
-  // add unique id to each book
+  // add id to each book
   newBook.id = count;
-  count++;
 
   // add newBook to library
   myLibrary.push(newBook);
 
-  // add myLibrary to page
-  addLibraryToPage(myLibrary);
+  // add newBook to table and assign every row the matching id
+  addBookToTable(newBook, count);
+
+  count++; // increases every time submit is pressed
 
   // remove book
-  let close = document.querySelectorAll(".close");
-  for (let i = 0; i < close.length; i++) {
-    close[i].addEventListener("click", function (event) {
-      let currentRow = close[i].closest("tr"); // finds <tr> parent of the current close button
-      currentRow.remove();
+  let remove = document.querySelectorAll(".remove");
+  for (let i = 0; i < remove.length; i++) {
+    remove[i].addEventListener("click", function (event) {
+      let currentId = remove[i].id; // id of the removed item
+      let currentRow = remove[i].closest("tr"); // <tr> parent of the current removed item
+      currentRow.remove(); // removes the current <tr> from <table>
 
-      // find the index of the book which id matches the closed row
-      let closeIndex = myLibrary.findIndex(function (object) {
-        return object.id == i;
+      // finds & removes the book with the id that matches the html id, so myLibrary
+      // is always synced with the table
+      let removeIndex = myLibrary.findIndex(function (book) {
+        return book.id == currentId;
       });
-
-      // delete that book from library
-      myLibrary.splice(closeIndex, 1);
+      myLibrary.splice(removeIndex, 1);
     });
   }
 });
