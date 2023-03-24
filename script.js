@@ -15,7 +15,7 @@ myLibraryy = [
 
 // add book to table. Book is an object and id should be unique every time
 function addBookToTable(book, id) {
-  table.innerHTML += `
+  tbody.innerHTML += `
   <tr id=${id}>
     <td>${book.title}</td>
     <td>${book.author}</td>
@@ -27,14 +27,24 @@ function addBookToTable(book, id) {
   // every time a new row is added, it is assigned a unique id
 }
 
+function hideThead() {
+  thead.style.display = "none";
+}
+
+function showThead() {
+  thead.style.display = "table-header-group";
+}
+
 let myLibrary = []; // array of book objects
 let count = 0; // id assigner
-let table = document.querySelector("table");
 let form = document.querySelector("form");
-let heading = document.querySelector(".heading");
+let thead = document.querySelector("thead");
+let tbody = document.querySelector("tbody");
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
+  showThead();
+
   // initialize new book
   let newBook = {};
 
@@ -53,8 +63,6 @@ form.addEventListener("submit", function (event) {
   // add newBook to table and assign id
   addBookToTable(newBook, count);
 
-  console.log(newBook);
-
   count++; // increases every time submit is pressed
 
   // remove book
@@ -71,6 +79,9 @@ form.addEventListener("submit", function (event) {
         return book.id == currentId;
       });
       myLibrary.splice(removeIndex, 1);
+
+      // remove thead if there are no books
+      myLibrary.length ? null : hideThead();
     });
   }
 

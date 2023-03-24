@@ -98,3 +98,7 @@ input[type="submit"] {
 .remove, .read {
   cursor: pointer;
 }
+
+thead {
+  display: none;
+}
