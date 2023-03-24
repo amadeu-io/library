@@ -13,7 +13,23 @@ myLibraryy = [
   },
 ];
 
-// add book to table. Book is an object and id should be unique every time
+// functions
+
+// book constructor function
+function Book(title, author, pages, read, id) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.id = id;
+}
+
+// read toggle function
+Book.prototype.toggleRead = function () {
+  return (this.read = this.read === "Yes" ? "No" : "Yes");
+};
+
+// add book object to table with an HTML id
 function addBookToTable(book, id) {
   tbody.innerHTML += `
   <tr id=${id}>
@@ -24,9 +40,9 @@ function addBookToTable(book, id) {
     <td class='remove'>✖️</td>
   </tr>
   `;
-  // every time a new row is added, it is assigned a unique id
 }
 
+// hide and show thead
 function hideThead() {
   thead.style.display = "none";
 }
@@ -41,16 +57,18 @@ function extractNumbers(str) {
   return str.match(regex) ? str.match(regex).join("") : "";
 }
 
+// program starts here
+
 let myLibrary = []; // array of book objects
 let count = 0; // id assigner
 let form = document.querySelector("form");
 let thead = document.querySelector("thead");
 let tbody = document.querySelector("tbody");
 
-console.log(extractNumbers("sl"));
-
 form.addEventListener("submit", function (event) {
-  event.preventDefault();
+  event.preventDefault(); // do not reload the page
+
+  // show thead
   showThead();
 
   // initialize new book
@@ -58,17 +76,18 @@ form.addEventListener("submit", function (event) {
 
   // take form input and build newBook object
   const formData = new FormData(form);
-  for (const [key, value] of formData) {
-    newBook[key] = value;
-  }
-
-  // add id to each book
-  newBook.id = count;
+  newBook = new Book(
+    formData.get("title"),
+    formData.get("author"),
+    formData.get("pages"),
+    formData.get("read"),
+    count // id
+  );
 
   // add newBook to library
   myLibrary.push(newBook);
 
-  // add newBook to table and assign id
+  // add newBook to table and assign matching HTML id
   addBookToTable(newBook, count);
 
   count++; // increases every time submit is pressed
@@ -77,18 +96,22 @@ form.addEventListener("submit", function (event) {
   let remove = document.querySelectorAll(".remove");
   for (let i = 0; i < remove.length; i++) {
     remove[i].addEventListener("click", function (event) {
+      // find current <tr> and HTML id
       let currentRow = remove[i].closest("tr"); // <tr> parent of the current removed item
       let currentId = currentRow.id; // id of the removed item
-      currentRow.remove(); // removes the current <tr> from <table>
 
-      // finds & removes the book with the id that matches the html id, so myLibrary
-      // is always synced with the table
+      // remove the current <tr> from table
+      currentRow.remove();
+
+      // find the book oject with matching id
       let removeIndex = myLibrary.findIndex(function (book) {
         return book.id == currentId;
       });
+
+      // remove the object from myLibrary
       myLibrary.splice(removeIndex, 1);
 
-      // remove thead if there are no books
+      // remove thead when there are no books
       myLibrary.length ? null : hideThead();
     });
   }
@@ -96,24 +119,21 @@ form.addEventListener("submit", function (event) {
   // toggle read status
   let read = document.querySelectorAll(".read");
   for (let j = 0; j < read.length; j++) {
-    // html content
     read[j].addEventListener("click", function (event) {
-      if (read[j].innerHTML == "Yes") {
-        read[j].innerHTML = "No";
-      } else {
-        read[j].innerHTML = "Yes";
-      }
+      // toggle the <tr> HTML content
+      read[j].innerHTML = read[j].innerHTML === "Yes" ? "No" : "Yes";
 
-      // myLibrary object
-      let currentRow = read[j].closest("tr"); // <tr> parent of the current removed item
+      // find HTML id
+      let currentRow = read[j].closest("tr"); // <tr> parent of the current toggled item
       let currentId = currentRow.id; // id of the removed item
 
-      // finds the book with the id that matches the html id, so myLibrary
-      // is always synced with the table
+      // find the book oject with matching id
       let toggleIndex = myLibrary.findIndex(function (book) {
         return book.id == currentId;
       });
-      myLibrary[toggleIndex].read = read[j].innerHTML; // update the object's read status
+
+      // toggle the object read status
+      myLibrary[toggleIndex].toggleRead();
     });
   }
 });
