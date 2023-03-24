@@ -19,7 +19,7 @@ function addBookToTable(book, id) {
   <tr id=${id}>
     <td>${book.title}</td>
     <td>${book.author}</td>
-    <td>${book.pages}</td>
+    <td>${extractNumbers(book.pages)}</td>
     <td class='read'>${book.read}</td>
     <td class='remove'>✖️</td>
   </tr>
@@ -35,11 +35,19 @@ function showThead() {
   thead.style.display = "table-header-group";
 }
 
+// takes a string and returns only the numbers in it
+function extractNumbers(str) {
+  const regex = /\d+/g;
+  return str.match(regex) ? str.match(regex).join("") : "";
+}
+
 let myLibrary = []; // array of book objects
 let count = 0; // id assigner
 let form = document.querySelector("form");
 let thead = document.querySelector("thead");
 let tbody = document.querySelector("tbody");
+
+console.log(extractNumbers("sl"));
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
