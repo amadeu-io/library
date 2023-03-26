@@ -1,18 +1,3 @@
-myLibraryy = [
-  {
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien",
-    pages: 295,
-    read: "No",
-  },
-  {
-    title: "The Theory of Relativity",
-    author: "Albert Einstein",
-    pages: 123,
-    read: "Yes",
-  },
-];
-
 // functions
 
 // book constructor function
@@ -37,16 +22,17 @@ function addBookToTable(book, id) {
     <td>${book.author}</td>
     <td>${extractNumbers(book.pages)}</td>
     <td class='read'>${book.read}</td>
-    <td class='remove'>✖️</td>
+    <td class='remove'><img src="icons/remove.svg"></td>
   </tr>
   `;
 }
 
-// hide and show thead
+// hide thead
 function hideThead() {
   thead.style.display = "none";
 }
 
+// show thead
 function showThead() {
   thead.style.display = "table-header-group";
 }

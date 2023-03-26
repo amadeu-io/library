@@ -6,31 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
-    <h1>Library 📖</h1>
+    <div class="body-container">
+      <!-- title -->
+      <h1>Library 📖</h1>
 
-    <div class="form-container">
+      <!-- form -->
       <form>
         <div class="input-container">
-          <label for="title">Title</label>
+          <label class="input-header" for="title">Title</label>
           <input type="text" id="title" name="title" />
         </div>
-
         <div class="input-container">
-          <label for="author">Author</label>
+          <label class="input-header" for="author">Author</label>
           <input type="text" id="author" name="author" />
         </div>
-
         <div class="input-container">
-          <label for="pages">Pages</label>
+          <label class="input-header" for="pages">Pages</label>
           <input type="text" id="pages" name="pages" />
         </div>
-
         <div class="input-container">
-          <div class="read">Read</div>
+          <div class="input-header">Read</div>
           <div class="radio-input-container">
-            <input type="radio" id="yes" name="read" value="Yes" checked/>
+            <input type="radio" id="yes" name="read" value="Yes" checked />
             <label for="Yes">Yes</label>
           </div>
           <div class="radio-input-container">
@@ -38,14 +43,12 @@
             <label for="No">No</label>
           </div>
         </div>
-
         <div class="submit-input-container">
           <input type="submit" value="Submit" />
         </div>
       </form>
-    </div>
 
-    <div class="table-container">
+      <!-- table -->
       <table>
         <thead>
           <tr>

@@ -20,65 +20,64 @@ th {
   text-align: left;
 }
 
-td, th {
+td,
+th {
   border: 1px solid;
-  padding: 10px;
 }
 
 /* generic styles */
 
-html, body { /* take up full height*/
+html,
+body {
+  /* take up full height*/
   height: 100%;
 }
 
 html {
-  font-size: 16px;
+  font-family: "Rubik", sans-serif;
+  font-size: 14px;
 }
-
-/* body */
 
 body {
   background-color: rgb(30, 30, 30);
   color: white;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 200px 1fr 1fr;
-  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.body-container {
+  width: clamp(300px, 80%, 500px);
 }
 
 h1 {
   font-size: 2.2rem;
-}
-
-h1, .table-container, .form-container {
-  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-table {
-  width: 500px;
+h1,
+table,
+form {
+  width: 100%;
+  padding: 40px 0;
 }
 
 /* form */
 
 form {
-  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-
 .input-container {
-  padding: 10px 0;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
-label, .read, .submit-input-container {
-  padding: 7px 0;
+.input-header {
+  margin-bottom: 10px;
 }
 
 input[type="text"] {
@@ -92,13 +91,41 @@ input[type="radio"] {
 }
 
 input[type="submit"] {
-  margin-bottom: 17px;
-}
-
-.remove, .read {
+  padding: 4px 8px;
   cursor: pointer;
 }
 
+/* table */
+
+.remove,
+.read {
+  cursor: pointer;
+  text-align: center;
+}
+
 thead {
+  /* will be changed with JS once there are books */
   display: none;
+}
+
+thead {
+  font-weight: 700;
+}
+
+td {
+  padding: 20px 5px;
+}
+
+thead td {
+  border: none;
+  border-bottom: 1px solid white;
+}
+
+tbody td {
+  border: none;
+}
+
+img[src$=".svg"] {
+  width: 18px;
+  height: auto;
 }
