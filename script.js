@@ -95,6 +95,12 @@ function renderLibrary() {
       library.splice(index, 1);
       renderLibrary();
     });
+
+    // toggle read functionality
+    tableRead.addEventListener("click", () => {
+      book.toggleRead();
+      renderLibrary();
+    });
   });
 }
 
@@ -104,7 +110,7 @@ renderLibrary();
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // do not reload the page
 
-  // get form data, construct new book & add to library
+  // get form data, construct new book & add it to library
   const formData = new FormData(form);
   library.push(
     new Book(
