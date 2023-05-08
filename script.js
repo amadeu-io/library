@@ -89,6 +89,12 @@ function renderLibrary() {
 
     // append row to tbody
     tbody.appendChild(tableRow);
+
+    // book removal functionality
+    tableRemove.addEventListener("click", () => {
+      library.splice(index, 1);
+      renderLibrary();
+    });
   });
 }
 
