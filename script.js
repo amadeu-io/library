@@ -1,18 +1,19 @@
 // functions
 
 // book constructor function
-function Book(title, author, pages, read, id) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = id;
-}
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-// read toggle function
-Book.prototype.toggleRead = function () {
-  return (this.read = this.read === "Yes" ? "No" : "Yes");
-};
+  // read toggle function
+  toggleRead() {
+    this.read = !this.read;
+  }
+}
 
 // add book object to table with an HTML id
 function addBookToTable(book, id) {
@@ -45,81 +46,56 @@ function extractNumbers(str) {
 
 // program starts here
 
-let myLibrary = []; // array of book objects
-let count = 0; // id assigner
 let form = document.querySelector("form");
 let thead = document.querySelector("thead");
 let tbody = document.querySelector("tbody");
 
+let masterArray = [
+  new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, false),
+  new Book("To Kill a Mockingbird", "Harper Lee", 281, false),
+  new Book("1984", "George Orwell", 328, false),
+];
+
+function renderMasterArray() {
+  tbody.innerHTML = "";
+  masterArray.forEach((book, index) => {
+    // create table row
+    const tableRow = document.createElement("tr");
+    const tableTitle = document.createElement("td");
+    const tableAuthor = document.createElement("td");
+    const tablePages = document.createElement("td");
+    const tableRead = document.createElement("td");
+    const tableRemove = document.createElement("td");
+
+    // add classes to each cell
+    tableTitle.className = "title";
+    tableAuthor.className = "author";
+    tablePages.className = "pages";
+    tableRead.className = "read";
+    tableRemove.className = "remove";
+
+    // add content to each cell
+    tableTitle.textContent = book.title;
+    tableAuthor.textContent = book.author;
+    tablePages.textContent = book.pages;
+    tableRead.textContent = book.read ? "Read" : "Not Read";
+    tableRemove.textContent = "❌";
+
+    // append cells to table row
+    tableRow.appendChild(tableTitle);
+    tableRow.appendChild(tableAuthor);
+    tableRow.appendChild(tablePages);
+    tableRow.appendChild(tableRead);
+    tableRow.appendChild(tableRemove);
+
+    // append row to tbody
+    tbody.appendChild(tableRow);
+  });
+}
+
+showThead();
+renderMasterArray();
+
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // do not reload the page
-
-  // show thead
-  showThead();
-
-  // initialize new book
-  let newBook = {};
-
-  // take form input and build newBook object
-  const formData = new FormData(form);
-  newBook = new Book(
-    formData.get("title"),
-    formData.get("author"),
-    formData.get("pages"),
-    formData.get("read"),
-    count // id
-  );
-
-  // add newBook to library
-  myLibrary.push(newBook);
-
-  // add newBook to table and assign matching HTML id
-  addBookToTable(newBook, count);
-
-  count++; // increases every time submit is pressed
-
-  // remove book
-  let remove = document.querySelectorAll(".remove");
-  for (let i = 0; i < remove.length; i++) {
-    remove[i].addEventListener("click", function (event) {
-      // find current <tr> and HTML id
-      let currentRow = remove[i].closest("tr"); // <tr> parent of the current removed item
-      let currentId = currentRow.id; // id of the removed item
-
-      // remove the current <tr> from table
-      currentRow.remove();
-
-      // find the book oject with matching id
-      let removeIndex = myLibrary.findIndex(function (book) {
-        return book.id == currentId;
-      });
-
-      // remove the object from myLibrary
-      myLibrary.splice(removeIndex, 1);
-
-      // remove thead when there are no books
-      myLibrary.length ? null : hideThead();
-    });
-  }
-
-  // toggle read status
-  let read = document.querySelectorAll(".read");
-  for (let j = 0; j < read.length; j++) {
-    read[j].addEventListener("click", function (event) {
-      // toggle the <tr> HTML content
-      read[j].innerHTML = read[j].innerHTML === "Yes" ? "No" : "Yes";
-
-      // find HTML id
-      let currentRow = read[j].closest("tr"); // <tr> parent of the current toggled item
-      let currentId = currentRow.id; // id of the removed item
-
-      // find the book oject with matching id
-      let toggleIndex = myLibrary.findIndex(function (book) {
-        return book.id == currentId;
-      });
-
-      // toggle the object read status
-      myLibrary[toggleIndex].toggleRead();
-    });
-  }
 });
