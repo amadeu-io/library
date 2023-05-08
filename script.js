@@ -51,8 +51,7 @@ let thead = document.querySelector("thead");
 let tbody = document.querySelector("tbody");
 
 let library = [
-  new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, false),
-  new Book("To Kill a Mockingbird", "Harper Lee", 281, false),
+  new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, true),
   new Book("1984", "George Orwell", 328, false),
 ];
 
@@ -98,4 +97,17 @@ renderLibrary();
 
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // do not reload the page
+
+  // get form data, construct new book & add to library
+  const formData = new FormData(form);
+  library.push(
+    new Book(
+      formData.get("title"),
+      formData.get("author"),
+      formData.get("pages"),
+      formData.get("read")
+    )
+  );
+
+  renderLibrary();
 });
