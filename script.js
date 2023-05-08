@@ -50,15 +50,15 @@ let form = document.querySelector("form");
 let thead = document.querySelector("thead");
 let tbody = document.querySelector("tbody");
 
-let masterArray = [
+let library = [
   new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, false),
   new Book("To Kill a Mockingbird", "Harper Lee", 281, false),
   new Book("1984", "George Orwell", 328, false),
 ];
 
-function renderMasterArray() {
+function renderLibrary() {
   tbody.innerHTML = "";
-  masterArray.forEach((book, index) => {
+  library.forEach((book, index) => {
     // create table row
     const tableRow = document.createElement("tr");
     const tableTitle = document.createElement("td");
@@ -94,7 +94,7 @@ function renderMasterArray() {
 }
 
 showThead();
-renderMasterArray();
+renderLibrary();
 
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // do not reload the page
