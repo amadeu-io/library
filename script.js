@@ -38,12 +38,6 @@ function showThead() {
   thead.style.display = "table-header-group";
 }
 
-// takes a string and returns only the numbers in it
-function extractNumbers(str) {
-  const regex = /\d+/g;
-  return str.match(regex) ? str.match(regex).join("") : "";
-}
-
 // program starts here
 
 let form = document.querySelector("form");
@@ -94,13 +88,19 @@ function renderLibrary() {
     tableRemove.addEventListener("click", () => {
       library.splice(index, 1);
       renderLibrary();
+
+      console.log(library);
     });
 
     // toggle read functionality
     tableRead.addEventListener("click", () => {
       book.toggleRead();
       renderLibrary();
+
+      console.log(library);
     });
+
+    console.log(library);
   });
 }
 
@@ -117,7 +117,7 @@ form.addEventListener("submit", function (event) {
       formData.get("title"),
       formData.get("author"),
       formData.get("pages"),
-      formData.get("read")
+      Boolean(formData.get("read"))
     )
   );
 
