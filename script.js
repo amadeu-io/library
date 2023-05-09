@@ -1,5 +1,3 @@
-// functions
-
 // book constructor function
 class Book {
   constructor(title, author, pages, read) {
@@ -18,7 +16,8 @@ class Book {
 // program starts here
 
 let form = document.querySelector("form");
-let table = document.querySelector("table");
+let tbody = document.querySelector("tbody");
+let thead = document.querySelector("thead");
 
 let library = [
   new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, true),
@@ -26,20 +25,10 @@ let library = [
 ];
 
 function renderLibrary() {
-  table.innerHTML = "";
+  // show thead only when there are books
+  thead.classList.toggle("hide-thead", library.length === 0);
 
-  if (library.length) {
-    table.innerHTML = `
-    <tr class="table-head">
-      <td>Title</td>
-      <td>Author</td>
-      <td>Pages</td>
-      <td>Read</td>
-      <td>Remove</td>
-    </tr>
-        `;
-  }
-
+  tbody.innerHTML = "";
   library.forEach((book, index) => {
     // create table row
     const tableRow = document.createElement("tr");
@@ -71,7 +60,7 @@ function renderLibrary() {
     tableRow.appendChild(tableRemove);
 
     // append row to tbody
-    table.appendChild(tableRow);
+    tbody.appendChild(tableRow);
 
     // book removal functionality
     tableRemove.addEventListener("click", () => {

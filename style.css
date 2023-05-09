@@ -97,14 +97,17 @@ input[type="submit"] {
 
 /* table */
 
-.remove,
-.read {
-  cursor: pointer;
-  text-align: center;
+thead {
+  font-weight: 700;
 }
 
-.table-head {
-  font-weight: 700;
+thead td {
+  border-bottom: 1px solid white;
+}
+
+thead.hide-thead {
+  /* will dynamically remove the thead when there are no books */
+  display: none;
 }
 
 td {
@@ -112,8 +115,10 @@ td {
   padding: 20px 5px;
 }
 
-.table-head td {
-  border-bottom: 1px solid white;
+.remove,
+.read {
+  cursor: pointer;
+  text-align: center;
 }
 
 img[src$=".svg"] {
