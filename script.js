@@ -15,19 +15,6 @@ class Book {
   }
 }
 
-// add book object to table with an HTML id
-function addBookToTable(book, id) {
-  tbody.innerHTML += `
-  <tr id=${id}>
-    <td>${book.title}</td>
-    <td>${book.author}</td>
-    <td>${extractNumbers(book.pages)}</td>
-    <td class='read'>${book.read}</td>
-    <td class='remove'><img src="icons/remove.svg"></td>
-  </tr>
-  `;
-}
-
 // hide thead
 function hideThead() {
   thead.style.display = "none";
