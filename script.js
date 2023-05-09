@@ -13,17 +13,7 @@ class Book {
   }
 }
 
-// program starts here
-
-let form = document.querySelector("form");
-let tbody = document.querySelector("tbody");
-let thead = document.querySelector("thead");
-
-let library = [
-  new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, true),
-  new Book("1984", "George Orwell", 328, false),
-];
-
+// renders library array on screen
 function renderLibrary() {
   // show thead only when there are books
   thead.classList.toggle("hide-thead", library.length === 0);
@@ -49,8 +39,10 @@ function renderLibrary() {
     tableTitle.textContent = book.title;
     tableAuthor.textContent = book.author;
     tablePages.textContent = book.pages;
-    tableRead.textContent = book.read ? "Read" : "Not Read";
-    tableRemove.textContent = "❌";
+    tableRead.textContent = book.read ? "Yes" : "No";
+    const removeIcon = document.createElement("img");
+    removeIcon.src = "icons/remove.svg";
+    tableRemove.appendChild(removeIcon);
 
     // append cells to table row
     tableRow.appendChild(tableTitle);
@@ -75,6 +67,18 @@ function renderLibrary() {
     });
   });
 }
+
+// program starts here
+
+let form = document.querySelector("form");
+let tbody = document.querySelector("tbody");
+let thead = document.querySelector("thead");
+
+let library = [
+  // example books, can be removed
+  new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, true),
+  new Book("1984", "George Orwell", 328, false),
+];
 
 renderLibrary();
 
