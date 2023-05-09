@@ -15,16 +15,6 @@ class Book {
   }
 }
 
-// hide thead
-function hideThead() {
-  thead.style.display = "none";
-}
-
-// show thead
-function showThead() {
-  thead.style.display = "table-header-group";
-}
-
 // program starts here
 
 let form = document.querySelector("form");
