@@ -28,8 +28,7 @@ function showThead() {
 // program starts here
 
 let form = document.querySelector("form");
-let thead = document.querySelector("thead");
-let tbody = document.querySelector("tbody");
+let table = document.querySelector("table");
 
 let library = [
   new Book("The Great Gatsby", "F. Scott Fitzgerald", 218, true),
@@ -37,7 +36,20 @@ let library = [
 ];
 
 function renderLibrary() {
-  tbody.innerHTML = "";
+  table.innerHTML = "";
+
+  if (library.length) {
+    table.innerHTML = `
+    <tr class="table-head">
+      <td>Title</td>
+      <td>Author</td>
+      <td>Pages</td>
+      <td>Read</td>
+      <td>Remove</td>
+    </tr>
+        `;
+  }
+
   library.forEach((book, index) => {
     // create table row
     const tableRow = document.createElement("tr");
@@ -69,29 +81,22 @@ function renderLibrary() {
     tableRow.appendChild(tableRemove);
 
     // append row to tbody
-    tbody.appendChild(tableRow);
+    table.appendChild(tableRow);
 
     // book removal functionality
     tableRemove.addEventListener("click", () => {
       library.splice(index, 1);
       renderLibrary();
-
-      console.log(library);
     });
 
     // toggle read functionality
     tableRead.addEventListener("click", () => {
       book.toggleRead();
       renderLibrary();
-
-      console.log(library);
     });
-
-    console.log(library);
   });
 }
 
-showThead();
 renderLibrary();
 
 form.addEventListener("submit", function (event) {
@@ -108,5 +113,6 @@ form.addEventListener("submit", function (event) {
     )
   );
 
+  // render the new library to screen
   renderLibrary();
 });

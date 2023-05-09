@@ -103,26 +103,17 @@ input[type="submit"] {
   text-align: center;
 }
 
-thead {
-  /* will be changed with JS once there are books */
-  display: none;
-}
-
-thead {
+.table-head {
   font-weight: 700;
 }
 
 td {
+  border: none;
   padding: 20px 5px;
 }
 
-thead td {
-  border: none;
+.table-head td {
   border-bottom: 1px solid white;
-}
-
-tbody td {
-  border: none;
 }
 
 img[src$=".svg"] {
