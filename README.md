@@ -9,7 +9,7 @@
 
 ### About 📖
 
-First project of the JavaScript chapter in [The Odin Project](https://www.theodinproject.com). A good practice of objects, constructors & methods, as well as form validation.
+First project of the JavaScript chapter in [The Odin Project](https://www.theodinproject.com). A good practice of objects, constructors & methods, as well as form validation
 
 ### Resources Used 📚
 
