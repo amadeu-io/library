@@ -86,7 +86,7 @@ renderLibrary();
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // do not reload the page
 
-  // only 'show' error message when value is missing
+  // only show error message when value is missing
   errorMessages[0].classList.toggle("show", title.validity.valueMissing);
   errorMessages[1].classList.toggle("show", author.validity.valueMissing);
   errorMessages[2].classList.toggle("show", pages.validity.valueMissing);
