@@ -80,6 +80,20 @@ form {
   margin-bottom: 10px;
 }
 
+.error-message {
+  margin-top: 7px;
+  font-size: 0.85rem;
+  color: rgb(255, 61, 61);
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+}
+
+.show {
+  /* dynamic class to show & hide error message */
+  opacity: 1;
+}
+
 input[type="text"] {
   font-size: 1rem;
   font-family: inherit;
