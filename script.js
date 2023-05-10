@@ -15,7 +15,7 @@ class Book {
 
 // renders library array on screen
 function renderLibrary() {
-  // add 'hide-head' class only when condition is true (there are books)
+  // add 'hide-head' class only when there are books
   thead.classList.toggle("hide-thead", library.length === 0);
 
   tbody.innerHTML = "";
@@ -70,10 +70,9 @@ function renderLibrary() {
 
 // program starts here
 
-let form = document.querySelector("form");
-let title = document.getElementById("title");
-let tbody = document.querySelector("tbody");
-let thead = document.querySelector("thead");
+const form = document.querySelector("form");
+const tbody = document.querySelector("tbody");
+const thead = document.querySelector("thead");
 const errorMessages = document.querySelectorAll(".error-message");
 
 let library = [
