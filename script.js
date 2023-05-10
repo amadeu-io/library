@@ -91,6 +91,7 @@ form.addEventListener("submit", function (event) {
   errorMessages[1].classList.toggle("show", author.validity.valueMissing);
   errorMessages[2].classList.toggle("show", pages.validity.valueMissing);
 
+  // if all inputs are valid
   if (form.checkValidity()) {
     // get form data, construct new book & add it to library
     const formData = new FormData(form);
@@ -103,7 +104,7 @@ form.addEventListener("submit", function (event) {
       )
     );
 
-    // render the new library to screen
+    // render the updated library to screen
     renderLibrary();
   }
 });
