@@ -36,19 +36,19 @@
         </div>
         <div class="input-container">
           <label class="input-header" for="pages">Pages</label>
-          <input type="text" id="pages" name="pages" required />
+          <input type="number" id="pages" name="pages" required />
           <span class="error-message" aria-live="polite"
-            >* Please enter pages</span
+            >* Please enter the number of pages</span
           >
         </div>
         <div class="input-container">
           <div class="input-header">Read</div>
           <div class="radio-input-container">
-            <input type="radio" id="yes" name="read" value="true" checked />
+            <input type="radio" id="yes" name="read" value="true" />
             <label for="Yes">Yes</label>
           </div>
           <div class="radio-input-container">
-            <input type="radio" id="no" name="read" value="" />
+            <input type="radio" id="no" name="read" value="" checked />
             <!-- empty read value will be false 
             when evaluated to a boolean -->
             <label for="No">No</label>

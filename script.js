@@ -74,6 +74,7 @@ let form = document.querySelector("form");
 let title = document.getElementById("title");
 let tbody = document.querySelector("tbody");
 let thead = document.querySelector("thead");
+const errorMessages = document.querySelectorAll(".error-message");
 
 let library = [
   // example books, can be removed
@@ -86,17 +87,24 @@ renderLibrary();
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // do not reload the page
 
-  // get form data, construct new book & add it to library
-  const formData = new FormData(form);
-  library.push(
-    new Book(
-      formData.get("title"),
-      formData.get("author"),
-      formData.get("pages"),
-      Boolean(formData.get("read"))
-    )
-  );
+  // only 'show' error message when value is missing
+  errorMessages[0].classList.toggle("show", title.validity.valueMissing);
+  errorMessages[1].classList.toggle("show", author.validity.valueMissing);
+  errorMessages[2].classList.toggle("show", pages.validity.valueMissing);
 
-  // render the new library to screen
-  renderLibrary();
+  if (form.checkValidity()) {
+    // get form data, construct new book & add it to library
+    const formData = new FormData(form);
+    library.push(
+      new Book(
+        formData.get("title"),
+        formData.get("author"),
+        formData.get("pages"),
+        Boolean(formData.get("read"))
+      )
+    );
+
+    // render the new library to screen
+    renderLibrary();
+  }
 });
